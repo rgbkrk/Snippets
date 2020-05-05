@@ -27,8 +27,10 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "build:server:dev": "nodemon 'server/index.ts' --exec 'ts-node' server/index.ts -e ts,graphql",
-    "start": "react-scripts start",
+    "start": "yarn dev",
+    "dev": "concurrently \"yarn server:dev\" \"yarn ui:dev\"",
+    "server:dev": "nodemon 'server/index.ts' --exec 'ts-node --script-mode' server/index.ts -e ts,graphql -p server/tsconfig.json",
+    "ui:dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -49,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^5.2.0",
     "@types/compression": "^1.7.0",
     "@types/express": "^4.17.6",
     "@types/graphql": "^14.5.0",

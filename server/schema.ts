@@ -9,6 +9,8 @@ const typeDefs = gql`
   }
 `;
 
+// Originally I was hoping I could do local schema.graphql files
+// No go on that though...
 // import "graphql-import-node";
 // import * as typeDefs from "./schema/schema.graphql";
 
