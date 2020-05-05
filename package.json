@@ -14,7 +14,12 @@
     "@types/react-dom": "^16.9.7",
     "@types/styled-components": "^5.1.0",
     "apollo-boost": "^0.4.7",
+    "apollo-server-express": "^2.13.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "graphql": "^15.0.0",
+    "graphql-depth-limit": "^1.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
@@ -22,7 +27,10 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "yarn dev",
+    "dev": "concurrently \"yarn server:dev\" \"yarn ui:dev\"",
+    "server:dev": "nodemon 'server/index.ts' --exec 'ts-node --script-mode' server/index.ts -e ts,graphql -p server/tsconfig.json",
+    "ui:dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -42,5 +50,13 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "@types/compression": "^1.7.0",
+    "@types/express": "^4.17.6",
+    "@types/graphql": "^14.5.0",
+    "@types/graphql-depth-limit": "^1.1.2",
+    "nodemon": "^2.0.3",
+    "ts-node": "^8.10.1"
+  }
 }
