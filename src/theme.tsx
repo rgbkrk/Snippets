@@ -66,9 +66,6 @@ export const useStyles = makeStyles((theme) => ({
     bottom: "5%",
     right: "5%",
   },
-  tooltip: {
-    fontSize: "50px",
-  },
 }));
 
 export default useStyles;

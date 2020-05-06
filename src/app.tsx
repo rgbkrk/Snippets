@@ -1,4 +1,5 @@
 // Vendor modules
+import { useMutation } from "@apollo/react-hooks";
 import { useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,6 +12,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import MenuIcon from "@material-ui/icons/Menu";
 import clsx from "clsx";
+import gql from "graphql-tag";
 import React, { useState } from "react";
 
 // Local modules
@@ -19,12 +21,27 @@ import { TwoPanes, Input, DragBar, Outputs, RunButton } from "./components";
 import History from "./components/history";
 import { useCodeMirror } from "./hooks/editor";
 
-import { useMutation } from "@apollo/react-hooks";
+const RUN_SNIPPET_MUTATION = gql`
+  mutation Execute($code: String) {
+    execute(code: $code) {
+      id
+      code
+      result
+      variables
+    }
+  }
+`;
 
 function App() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [editorRef] = useCodeMirror({
+    text: `let x = 2; 
+x*2
+`,
+  });
+  const [runSnippet, { data }] = useMutation(RUN_SNIPPET_MUTATION);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -33,11 +50,6 @@ function App() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  const [editorRef] = useCodeMirror({
-    text: `let x = 2;
-x*2`,
-  });
 
   return (
     <div className={classes.root}>
@@ -100,7 +112,7 @@ x*2`,
           <Input ref={editorRef}></Input>
           <DragBar />
           <Outputs>
-            <pre>{}</pre>
+            <pre>{data && JSON.stringify(data.execute, null, 2)}</pre>
           </Outputs>
         </TwoPanes>
       </main>

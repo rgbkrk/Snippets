@@ -18,6 +18,7 @@ export const TwoPanes = styled.div`
 export const Input = styled.div`
   flex: 3;
   height: 100vh;
+  padding: 10px;
 `;
 
 export const DragBar = styled.div`
@@ -29,6 +30,7 @@ export const DragBar = styled.div`
 
 export const Outputs = styled.div`
   flex: 3;
+  padding: 10px;
 `;
 
 const StyledButton = styled(Button)`
