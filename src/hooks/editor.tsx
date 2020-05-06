@@ -95,7 +95,7 @@ export function useCodeMirror(options: { text: string }) {
     window.editorState = editorState;
 
     el.appendChild(myView.dom);
-  });
+  }, [ref]);
 
   return [ref];
 }
