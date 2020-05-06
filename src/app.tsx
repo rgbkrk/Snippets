@@ -15,9 +15,9 @@ import React, { useState } from "react";
 
 // Local modules
 import useStyles from "./theme";
-import RunButton from "./components/runButton";
+import RunButton from "./components/run-button";
 import Snippet from "./components/snippet";
-import CreateSnippetButton from "./components/createSnippetButton";
+import CreateSnippetButton from "./components/create-snippet-button";
 /* ************************************************************************** */
 /* import History from "./components/History"; */
 /* ************************************************************************** */

@@ -6,8 +6,17 @@ import compression from "compression";
 import cors from "cors";
 import schema from "./schema";
 
+import SessionsAPI from "./datasources/sessions";
+
 const app = express();
+
+// Create our batch of fake sessions
+const sessions = {};
+
 const server = new ApolloServer({
+  dataSources: () => ({
+    sessionsAPI: new SessionsAPI({ sessions }),
+  }),
   schema,
   validationRules: [depthLimit(7)],
 });
