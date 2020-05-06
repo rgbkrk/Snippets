@@ -5,8 +5,6 @@ import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
 
-import useStyle from "../theme";
-
 /* Styled Components */
 /* ************************************************************************** */
 export const TwoPanes = styled.div`

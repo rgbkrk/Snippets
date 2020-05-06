@@ -16,13 +16,10 @@ import React, { useState } from "react";
 // Local modules
 import useStyles from "./theme";
 import { TwoPanes, Input, DragBar, Outputs, RunButton } from "./components";
-import CreateSnippetButton from "./components/create-snippet-button";
+import History from "./components/history";
 import { useCodeMirror } from "./hooks/editor";
 
 import { useMutation } from "@apollo/react-hooks";
-/* ************************************************************************** */
-/* import History from "./components/History"; */
-/* ************************************************************************** */
 
 function App() {
   const classes = useStyles();
@@ -91,7 +88,7 @@ x*2`,
           </IconButton>
         </div>
         <Divider />
-        {/* <History /> */}
+        <History />
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -106,7 +103,6 @@ x*2`,
             <pre>{}</pre>
           </Outputs>
         </TwoPanes>
-        <CreateSnippetButton />
       </main>
     </div>
   );
