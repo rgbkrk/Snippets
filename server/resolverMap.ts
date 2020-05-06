@@ -1,8 +1,25 @@
 import { IResolvers } from "graphql-tools";
-const resolverMap: IResolvers = {
+import { Context } from "./context";
+
+import { Session } from "./datasources/sessions";
+
+type Source = {};
+
+const resolverMap: IResolvers<Source, Context> = {
   Query: {
-    helloWorld(_: void, args: void): string {
-      return `👋 Hello world! 👋`;
+    sessions(_source: Source, args: any, ctx: Context): Session[] {
+      const sessions = ctx.dataSources.sessionsAPI.list();
+      return sessions;
+    },
+  },
+  Mutation: {
+    async execute(
+      _source: Source,
+      args: { code: string },
+      ctx: Context
+    ): Promise<Session> {
+      const session = await ctx.dataSources.sessionsAPI.execute(args.code);
+      return session;
     },
   },
 };
