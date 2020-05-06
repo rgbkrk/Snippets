@@ -57,6 +57,18 @@ export const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  addCircleIcon: {
+    width: "60px",
+    height: "60px",
+  },
+  createSnippetButton: {
+    position: "absolute",
+    bottom: "5%",
+    right: "5%",
+  },
+  tooltip: {
+    fontSize: "50px",
+  },
 }));
 
 export default useStyles;

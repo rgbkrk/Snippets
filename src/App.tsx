@@ -17,7 +17,10 @@ import React, { useState } from "react";
 import useStyles from "./theme";
 import RunButton from "./components/runButton";
 import Snippet from "./components/snippet";
-// import History from "./components/History";
+import CreateSnippetButton from "./components/createSnippetButton";
+/* ************************************************************************** */
+/* import History from "./components/History"; */
+/* ************************************************************************** */
 
 function App() {
   const classes = useStyles();
@@ -90,6 +93,7 @@ function App() {
       >
         <div className={classes.drawerHeader} />
         <Snippet />
+        <CreateSnippetButton />
       </main>
     </div>
   );
