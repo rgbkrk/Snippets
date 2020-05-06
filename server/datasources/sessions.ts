@@ -47,13 +47,21 @@ class SessionsAPI extends DataSource<Context> {
       result = runInSandbox(code, session.sandbox);
     } catch (err) {
       result = {
-        type: "error",
+        _type: "error",
         name: err.name,
         message: err.message,
         stack: err.stack,
       };
     }
+    result = JSON.stringify(result, null, 2);
 
+    // Workaround for the case where JSON.stringify returns undefined
+    // This happens with native code like console.log (Try `JSON.stringify(console.log)` yourself!)
+    if (result === undefined) {
+      result = "undefined";
+    }
+
+    // Loose hacking to create a JSON compatible representation of the result
     session.result = JSON.parse(JSON.stringify(result, null, 2));
 
     return session;
