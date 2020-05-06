@@ -1,16 +1,25 @@
 // Vendor modules
+import { ApolloProvider } from "@apollo/react-hooks";
+import ApolloClient from "apollo-boost";
 import React from "react";
 import ReactDOM from "react-dom";
 
 // Local modules
 import "./index.css";
-import App from "./App";
+import App from "./app";
 import * as serviceWorker from "./serviceWorker";
 
+// Instantiating the Apollo client.
+// For more, see:
+// https://www.apollographql.com/docs/react/get-started/#create-a-client
+const client = new ApolloClient({
+  uri: "localhost:3000",
+});
+
 ReactDOM.render(
-  <React.StrictMode>
+  <ApolloProvider client={client}>
     <App />
-  </React.StrictMode>,
+  </ApolloProvider>,
   document.getElementById("root")
 );
 
