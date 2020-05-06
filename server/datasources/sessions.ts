@@ -41,8 +41,18 @@ class SessionsAPI extends DataSource<Context> {
     };
 
     this.context.sessions[id] = session;
+    let result;
 
-    const result = runInSandbox(code, session.sandbox);
+    try {
+      result = runInSandbox(code, session.sandbox);
+    } catch (err) {
+      result = {
+        type: "error",
+        name: err.name,
+        message: err.message,
+        stack: err.stack,
+      };
+    }
 
     session.result = JSON.parse(JSON.stringify(result, null, 2));
 
