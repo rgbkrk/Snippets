@@ -15,9 +15,11 @@ import React, { useState } from "react";
 
 // Local modules
 import useStyles from "./theme";
-import RunButton from "./components/run-button";
-import Snippet from "./components/snippet";
+import { TwoPanes, Input, DragBar, Outputs, RunButton } from "./components";
 import CreateSnippetButton from "./components/create-snippet-button";
+import { useCodeMirror } from "./hooks/editor";
+
+import { useMutation } from "@apollo/react-hooks";
 /* ************************************************************************** */
 /* import History from "./components/History"; */
 /* ************************************************************************** */
@@ -34,6 +36,11 @@ function App() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const [editorRef] = useCodeMirror({
+    text: `let x = 2;
+x*2`,
+  });
 
   return (
     <div className={classes.root}>
@@ -57,7 +64,7 @@ function App() {
           <Typography variant="h6" noWrap>
             Snippets
           </Typography>
-          <RunButton />
+          <RunButton onClick={() => {}} />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -92,7 +99,13 @@ function App() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Snippet />
+        <TwoPanes className="twopane">
+          <Input ref={editorRef}></Input>
+          <DragBar />
+          <Outputs>
+            <pre>{}</pre>
+          </Outputs>
+        </TwoPanes>
         <CreateSnippetButton />
       </main>
     </div>
