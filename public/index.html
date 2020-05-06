@@ -56,7 +56,7 @@
       document.addEventListener("DOMContentLoaded", (event) => {
         var textarea = document.getElementById("editor");
         var editor = CodeMirror.fromTextArea(textarea, {
-          mode: { name: "javascript", json: true },
+          mode: "javascript",
           lineNumbers: true,
         });
       });

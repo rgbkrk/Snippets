@@ -11,6 +11,8 @@ export default function RunButton() {
   const classes = useStyle();
   const handleRun = () => {
     /* Handles executing code in the editor */
+    const editor = document.querySelector(".CodeMirror");
+    console.log(editor);
   };
 
   return (

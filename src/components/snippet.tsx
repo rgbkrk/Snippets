@@ -2,17 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 export default function Snippet() {
-  const handleTextAreaChange = (
-    e: React.SyntheticEvent<HTMLTextAreaElement>
-  ) => {
-    /* Handle TextArea Change */
-    const text = e.currentTarget.value;
-    console.log(text);
-  };
-
   return (
     <TwoPanes className="twopane">
-      <Editor id={"editor"} onChange={handleTextAreaChange}></Editor>
+      <Editor id={"editor"}></Editor>
       <DragBar />
       <Outputs>
         <pre>{}</pre>
