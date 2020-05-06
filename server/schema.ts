@@ -6,10 +6,12 @@ import gql from "graphql-tag";
 import { Context } from "./context";
 
 const typeDefs = gql`
+  scalar JSON
+
   type Session {
     id: String
     code: String
-    result: String
+    result: JSON
   }
 
   type Query {

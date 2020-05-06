@@ -32,9 +32,11 @@ class SessionsAPI extends DataSource<Context> {
 
   async execute(code: string) {
     const id = uuid.v4();
+
     let session: Session = {
       code,
-      sandbox: createSandbox(),
+      // Create a sandbox with nothing but JS primitives (no console, no require)
+      sandbox: createSandbox({}),
       id,
     };
 
@@ -42,9 +44,13 @@ class SessionsAPI extends DataSource<Context> {
 
     const result = runInSandbox(code, session.sandbox);
 
-    session.result = result;
+    session.result = JSON.parse(JSON.stringify(result, null, 2));
 
     return session;
+  }
+
+  get(id: string): Session | undefined {
+    return this.context.sessions[id];
   }
 
   list(): Session[] {

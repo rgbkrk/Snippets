@@ -1,4 +1,7 @@
 import { IResolvers } from "graphql-tools";
+
+import GraphQLJSON from "graphql-type-json";
+
 import { Context } from "./context";
 
 import { Session } from "./datasources/sessions";
@@ -6,6 +9,8 @@ import { Session } from "./datasources/sessions";
 type Source = {};
 
 const resolverMap: IResolvers<Source, Context> = {
+  JSON: GraphQLJSON,
+
   Query: {
     sessions(_source: Source, args: any, ctx: Context): Session[] {
       const sessions = ctx.dataSources.sessionsAPI.list();
