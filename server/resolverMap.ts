@@ -6,20 +6,30 @@ import { Context } from "./context";
 
 import { Session } from "./datasources/sessions";
 
-type Source = {};
-
-const resolverMap: IResolvers<Source, Context> = {
+const resolverMap: IResolvers<any, Context> = {
   JSON: GraphQLJSON,
 
+  Session: {
+    variables: (root, args, context, info) =>
+      JSON.parse(JSON.stringify(root.sandbox)),
+  },
+
   Query: {
-    sessions(_source: Source, args: any, ctx: Context): Session[] {
+    sessions(_source: any, args: any, ctx: Context): Session[] {
       const sessions = ctx.dataSources.sessionsAPI.list();
       return sessions;
+    },
+    session(
+      _source: any,
+      args: { id: string },
+      ctx: Context
+    ): Session | undefined {
+      return ctx.dataSources.sessionsAPI.get(args.id);
     },
   },
   Mutation: {
     async execute(
-      _source: Source,
+      _source: any,
       args: { code: string },
       ctx: Context
     ): Promise<Session> {

@@ -12,10 +12,12 @@ const typeDefs = gql`
     id: String
     code: String
     result: JSON
+    variables: JSON
   }
 
   type Query {
     sessions: [Session!]!
+    session(id: String): Session
   }
 
   type Mutation {

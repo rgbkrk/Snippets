@@ -8,7 +8,13 @@ import {
 
 import * as uuid from "uuid";
 
-type SessionConfig = {};
+import { Context } from "../context";
+
+type Sessions = { [key: string]: Session };
+
+type SessionConfig = {
+  sessions: Sessions;
+};
 
 export type Session = {
   code: string;
@@ -17,17 +23,13 @@ export type Session = {
   result?: any;
 };
 
-type Context = {
-  sessions: { [key: string]: Session };
-};
-
 class SessionsAPI extends DataSource<Context> {
-  config: SessionConfig;
   context!: Context;
+  sessions: Sessions;
 
   constructor(config: SessionConfig) {
     super();
-    this.config = config;
+    this.sessions = config.sessions;
   }
 
   async execute(code: string) {
@@ -35,12 +37,12 @@ class SessionsAPI extends DataSource<Context> {
 
     let session: Session = {
       code,
-      // Create a sandbox with nothing but JS primitives (no console, no require)
-      sandbox: createSandbox({}),
+      // Create a sandbox with nothing but JS primitives (no require)
+      sandbox: createSandbox({ setTimeout, setInterval }),
       id,
     };
 
-    this.context.sessions[id] = session;
+    this.sessions[id] = session;
     let result;
 
     try {
@@ -53,6 +55,7 @@ class SessionsAPI extends DataSource<Context> {
         stack: err.stack,
       };
     }
+
     result = JSON.stringify(result, null, 2);
 
     // Workaround for the case where JSON.stringify returns undefined
@@ -68,20 +71,15 @@ class SessionsAPI extends DataSource<Context> {
   }
 
   get(id: string): Session | undefined {
-    return this.context.sessions[id];
+    return this.sessions[id];
   }
 
   list(): Session[] {
-    return Object.values(this.context.sessions);
+    return Object.values(this.sessions);
   }
 
   initialize(dsconfig: DataSourceConfig<Context>) {
     this.context = dsconfig.context;
-
-    // Initialize the sessions
-    if (!this.context.sessions) {
-      this.context.sessions = {};
-    }
   }
 }
 
