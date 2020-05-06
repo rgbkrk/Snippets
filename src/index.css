@@ -12,9 +12,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.CodeMirror {
-  border: 1px solid #eee;
-  width: 50%;
-  height: 80%;
-}

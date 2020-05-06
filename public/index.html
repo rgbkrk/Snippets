@@ -33,10 +33,6 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
     <!-- Material UI dependencies -->
-    <script src="lib/codemirror.js"></script>
-    <link rel="stylesheet" href="lib/codemirror.css" />
-    <script src="mode/jsx/jsx.js"></script>
-    <!-- CodeMirror -->
     <title>Snippets</title>
   </head>
   <body>
@@ -52,14 +48,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script>
-      document.addEventListener("DOMContentLoaded", (event) => {
-        var textarea = document.getElementById("editor");
-        var editor = CodeMirror.fromTextArea(textarea, {
-          mode: "javascript",
-          lineNumbers: true,
-        });
-      });
-    </script>
   </body>
 </html>
