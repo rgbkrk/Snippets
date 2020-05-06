@@ -1085,6 +1085,19 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@codemirror/next@^0.5.5":
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/@codemirror/next/-/next-0.5.5.tgz#2cdaae75ccd4649bb9641944a45481a3a2486b84"
+  integrity sha512-SsQB6LlStbdf1qz8ZNCKA+QKA/YCupz88OudRAw89AgCm0MQ0ySqXvOvp1PWVy440Axi1HW2O8jN757VCOz8Lw==
+  dependencies:
+    lezer "^0.8.3"
+    lezer-css "^0.8.2"
+    lezer-html "^0.8.3"
+    lezer-javascript "^0.8.2"
+    lezer-tree "^0.8.4"
+    style-mod "^2.2.2"
+    w3c-keyname "^2.2.4"
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
@@ -7606,6 +7619,39 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+lezer-css@^0.8.2:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/lezer-css/-/lezer-css-0.8.3.tgz#1c5b4ccdc6bf77448b756e13dc099dd97dba38b7"
+  integrity sha512-pL0OyYRdG+ZPW+DerO8AEKmwEp7F3+tmLKiofzbiGsUe8xHAOtavIJL0wWYxTBb7uR4Zykjm2nnSaCuveccHHg==
+  dependencies:
+    lezer "^0.8.0"
+
+lezer-html@^0.8.3:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/lezer-html/-/lezer-html-0.8.4.tgz#6a8458fabbcf7f8188cf0b09e0e22a9ee12dbdfb"
+  integrity sha512-KEFH0ZEEVm7t3QlSuqGDACL718uqUBxfkoFp5Rel1VPp4AvcoXffVIA/Owa3DIqJWulqEPvPTse3me5L+I6MQg==
+  dependencies:
+    lezer "^0.8.0"
+
+lezer-javascript@^0.8.2:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/lezer-javascript/-/lezer-javascript-0.8.3.tgz#d3804ae9c5147b8e15a345f7ec8c0bcee0d98707"
+  integrity sha512-bJU+rZ3uhFJy2qGTBfw01zBn0hgfT9dB1aM1URyuPdbAMyzs7nChDmsYh2wttU4V+MadFcZT2fgF4l0shE0hKg==
+  dependencies:
+    lezer "^0.8.0"
+
+lezer-tree@^0.8.0, lezer-tree@^0.8.4:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/lezer-tree/-/lezer-tree-0.8.4.tgz#aaf65ebbbb2296d65e3ed079dce1c26631ff9f91"
+  integrity sha512-gg9WYNa7xM1rhHRX+z2NaqhUxi1dndtdo3htqfazHXeFKzaR8hK1lT2pQYdFxWvtFbY0W9aG/VQn77jHuhu86g==
+
+lezer@^0.8.0, lezer@^0.8.3:
+  version "0.8.5"
+  resolved "https://registry.yarnpkg.com/lezer/-/lezer-0.8.5.tgz#8a724c7af486f95ed88d54b009b221472cf1849f"
+  integrity sha512-FnX53xvQiDNg/IBNqng2cz0okwsSHbyv5J8pzLCrMUSQspZrGZA8r/av60dTKcjsauPhc8rdvKsXteiadZmkhA==
+  dependencies:
+    lezer-tree "^0.8.0"
+
 lines-and-columns@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
@@ -11218,6 +11264,11 @@ style-loader@0.23.1:
     loader-utils "^1.1.0"
     schema-utils "^1.0.0"
 
+style-mod@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/style-mod/-/style-mod-2.2.2.tgz#872fd162a6c063763ce94284e08c72bc8435c62a"
+  integrity sha512-7HKP//nW8IKqMW6kSYAxDKh8B6yL5Zn2AZ0a6pURlhG6+zbmn3MuQR5OKu0SYNaKV+bXQtb6yNATxvjnbbVUHw==
+
 styled-components@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-5.1.0.tgz#2e3985b54f461027e1c91af3229e1c2530872a4e"
@@ -11895,6 +11946,11 @@ w3c-hr-time@^1.0.1:
   integrity sha512-z8P5DvDNjKDoFIHK7q8r8lackT6l+jo/Ye3HOle7l9nICP9lf1Ci25fy9vHd0JOWewkIFzXIEig3TdKT7JQ5fQ==
   dependencies:
     browser-process-hrtime "^1.0.0"
+
+w3c-keyname@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/w3c-keyname/-/w3c-keyname-2.2.4.tgz#4ade6916f6290224cdbd1db8ac49eab03d0eef6b"
+  integrity sha512-tOhfEwEzFLJzf6d1ZPkYfGj+FWhIpBux9ppoP3rlclw3Z0BZv3N7b7030Z1kYth+6rDuAsXUFr+d0VE6Ed1ikw==
 
 w3c-xmlserializer@^1.1.2:
   version "1.1.2"
