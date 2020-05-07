@@ -1,5 +1,7 @@
 // Vendor modules
 import { useMutation } from "@apollo/react-hooks";
+import { Transaction } from "@codemirror/next/state";
+import { EditorView } from "@codemirror/next/view";
 import { useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,14 +15,16 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import MenuIcon from "@material-ui/icons/Menu";
 import clsx from "clsx";
 import gql from "graphql-tag";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // Local modules
-import useStyles from "./theme";
 import { TwoPanes, Input, DragBar, Outputs, RunButton } from "./components";
 import History from "./components/history";
-import { useCodeMirror } from "./hooks/editor";
+import useStyles from "./theme";
+import { configureEditorState } from "./utils";
 
+// GraphQL mutation executes code
+/* ************************************************************************** */
 const RUN_SNIPPET_MUTATION = gql`
   mutation Execute($code: String) {
     execute(code: $code) {
@@ -32,16 +36,27 @@ const RUN_SNIPPET_MUTATION = gql`
   }
 `;
 
+/* ************************************************************************** */
+
 function App() {
   const classes = useStyles();
   const theme = useTheme();
+  const ref = useRef<HTMLDivElement>(null);
+  const defaultCode = `let x = 2;
+x * 2
+`;
+  const [code, updateCode] = useState(defaultCode);
   const [open, setOpen] = useState(false);
-  const [editorRef] = useCodeMirror({
-    text: `let x = 2; 
-x*2
-`,
-  });
   const [runSnippet, { data }] = useMutation(RUN_SNIPPET_MUTATION);
+
+  // Configure CodeMirror Editor
+  const myView = new EditorView({
+    state: configureEditorState({ text: code }),
+    dispatch: (t: Transaction) => {
+      updateCode(t.docs.toString());
+      myView.update([t]);
+    },
+  });
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -50,6 +65,18 @@ x*2
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleRunButtonClick = () => {};
+
+  // When the component mounts, instantiate the CodeMirror editor.
+  useEffect(() => {
+    if (ref === null || ref.current === null) {
+      return;
+    }
+
+    const el = ref.current;
+    el.appendChild(myView.dom);
+  }, [ref, myView.dom]);
 
   return (
     <div className={classes.root}>
@@ -73,7 +100,7 @@ x*2
           <Typography variant="h6" noWrap>
             Snippets
           </Typography>
-          <RunButton onClick={() => {}} />
+          <RunButton onClick={handleRunButtonClick} />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -109,7 +136,7 @@ x*2
       >
         <div className={classes.drawerHeader} />
         <TwoPanes className="twopane">
-          <Input ref={editorRef}></Input>
+          <Input ref={ref}></Input>
           <DragBar />
           <Outputs>
             <pre>{data && JSON.stringify(data.execute, null, 2)}</pre>
