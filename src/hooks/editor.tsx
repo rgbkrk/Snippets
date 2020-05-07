@@ -1,6 +1,9 @@
-import { autocomplete } from "@codemirror/next/autocomplete";
-import { closeBrackets } from "@codemirror/next/closebrackets";
-import { baseKeymap, indentSelection } from "@codemirror/next/commands";
+import { useEffect, useRef } from "react";
+
+import { EditorView } from "@codemirror/next/view";
+import { EditorState, Transaction } from "@codemirror/next/state";
+
+import { keymap } from "@codemirror/next/keymap";
 import {
   history,
   redo,
@@ -10,21 +13,30 @@ import {
 } from "@codemirror/next/history";
 import { foldCode, unfoldCode, foldGutter } from "@codemirror/next/fold";
 import { lineNumbers } from "@codemirror/next/gutter";
-import { defaultHighlighter } from "@codemirror/next/highlight";
-import { keymap } from "@codemirror/next/keymap";
-import { javascript } from "@codemirror/next/lang-javascript";
+import { baseKeymap, indentSelection } from "@codemirror/next/commands";
 import { bracketMatching } from "@codemirror/next/matchbrackets";
+import { closeBrackets } from "@codemirror/next/closebrackets";
+import { specialChars } from "@codemirror/next/special-chars";
 import { multipleSelections } from "@codemirror/next/multiple-selections";
 import { search, defaultSearchKeymap } from "@codemirror/next/search";
-import { specialChars } from "@codemirror/next/special-chars";
-import { EditorState } from "@codemirror/next/state";
+import { autocomplete } from "@codemirror/next/autocomplete";
 
-export function configureEditorState(options: { text: string }): EditorState {
+import { javascript } from "@codemirror/next/lang-javascript";
+import { defaultHighlighter } from "@codemirror/next/highlight";
+
+/**
+ * Set up CodeMirror
+ */
+export function useCodeMirror(options: {
+  text: string;
+  dispatch: (code: string) => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
   const jsCompletions = "break case catch class const continue debugger default delete do else enum export extends false finally for function if implements import interface in instanceof let new package private protected public return static super switch this throw true try typeof var void while with yield"
     .split(" ")
     .concat(Object.getOwnPropertyNames(window));
   const isMac = /Mac/.test(navigator.platform);
-  return EditorState.create({
+  const editorState = EditorState.create({
     doc: options.text,
     extensions: [
       lineNumbers(),
@@ -66,4 +78,23 @@ export function configureEditorState(options: { text: string }): EditorState {
       keymap(baseKeymap),
     ],
   });
+
+  useEffect(() => {
+    if (ref === null || ref.current === null) {
+      return;
+    }
+    const el = ref.current;
+
+    const myView = new EditorView({
+      state: editorState,
+      dispatch: (t: Transaction) => {
+        options.dispatch(t.docs.toString());
+        myView.update([t]);
+      },
+    });
+
+    el.appendChild(myView.dom);
+  }, [ref]);
+
+  return [ref];
 }

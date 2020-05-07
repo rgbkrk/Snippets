@@ -42,7 +42,7 @@ const StyledButton = styled(Button)`
 
 export function TooltipButton(props: {
   children: React.ReactNode;
-  onClick?: any;
+  onClick?: () => void;
   tooltipTitle: string;
 }) {
   return (
@@ -54,7 +54,7 @@ export function TooltipButton(props: {
   );
 }
 
-export function RunButton(props: { onClick: any }) {
+export function RunButton(props: { onClick?: any }) {
   return (
     <TooltipButton tooltipTitle="Run code" onClick={props.onClick}>
       Run
