@@ -39,9 +39,12 @@ const RUN_SNIPPET_MUTATION = gql`
 function App() {
   const classes = useStyles();
   const theme = useTheme();
-  const initialCode = `let x = 2;
-x * 2
-`;
+  const initialCode = `var y = { a: 1, b: 1 }
+y.a = y.a*2
+y.b = y.b*3
+
+y`;
+
   const [open, setOpen] = useState(false);
   const [editorRef] = useCodeMirror({
     text: initialCode,
@@ -119,7 +122,7 @@ x * 2
           <Input ref={editorRef}></Input>
           <DragBar />
           <Outputs>
-            <pre>{"Hello, World!"}</pre>
+            <pre>{}</pre>
           </Outputs>
         </TwoPanes>
       </main>
