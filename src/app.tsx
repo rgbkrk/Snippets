@@ -48,10 +48,12 @@ y`;
   const [open, setOpen] = useState(false);
   const [editorRef] = useCodeMirror({
     text: initialCode,
-    // Dispatches the input from the CodeMirror editor
-    dispatch: (code: string) => {},
+    // When the editor changes code, this callback is triggered with the current code
+    setCode: (code: string) => {},
   });
-  const [runSnippet, { data }] = useMutation(RUN_SNIPPET_MUTATION);
+  const [runSnippet, { data }] = useMutation(RUN_SNIPPET_MUTATION, {
+    variables: {},
+  });
 
   const handleDrawerOpen = () => {
     setOpen(true);
