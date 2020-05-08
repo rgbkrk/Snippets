@@ -43,8 +43,7 @@ function App() {
 y.a = y.a*2
 y.b = y.b*3
 
-y
-`;
+y`;
 
   const [open, setOpen] = useState(false);
   const [editorRef] = useCodeMirror({
