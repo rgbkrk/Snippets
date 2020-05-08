@@ -8,7 +8,7 @@ The Snippet UI consists of an input and output area. The input area contains a c
 
 ![](images/results.gif)
 
-Feel free to style and modify the results and/or UI as you see fit. If you have extra time and want to go further, you could try your hand at hooking up the snippet history feature. The task is to display a list of the previously run snippets the side drawer, e.g. see image below. This is a little bit more involved and requires examining the code in the `server` to determine which GraphQL queries are available and making them available on the frontend utilizing [Apollo Client](https://www.apollographql.com/docs/react/). Then you'll want to extend the `src` code to display the snippets.
+Feel free to style and modify the results and/or the UI as you see fit. If you have extra time and want to go further, you could try your hand at hooking up the snippet history feature. The task is to display a list of the previously run snippets in the drawer, e.g. see image below. This is a little bit more involved and requires examining the code in the `server` folder to determine which [GraphQL](https://www.apollographql.com/docs/apollo-server/) queries are available and hooking them up on the frontend utilizing [Apollo Client](https://www.apollographql.com/docs/react/). Then you'll want to extend the code in the `src` folder to display the snippets.
 
 ![](images/snippet_history.gif)
 
