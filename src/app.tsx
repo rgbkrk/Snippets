@@ -39,15 +39,15 @@ const RUN_SNIPPET_MUTATION = gql`
 function App() {
   const classes = useStyles();
   const theme = useTheme();
-  const defaultCode = `let x = 2;
+  const initialCode = `let x = 2;
 x * 2
 `;
-  const [code, updateCode] = useState(defaultCode);
-  const [editorRef] = useCodeMirror({
-    text: code,
-    dispatch: (code: string) => updateCode(code),
-  });
   const [open, setOpen] = useState(false);
+  const [editorRef] = useCodeMirror({
+    text: initialCode,
+    // Dispatches the input from the CodeMirror editor
+    dispatch: (code: string) => {},
+  });
   const [runSnippet, { data }] = useMutation(RUN_SNIPPET_MUTATION);
 
   const handleDrawerOpen = () => {
@@ -56,10 +56,6 @@ x * 2
 
   const handleDrawerClose = () => {
     setOpen(false);
-  };
-
-  const handleRunButtonClick = () => {
-    /* Your code here */
   };
 
   return (
@@ -84,7 +80,7 @@ x * 2
           <Typography variant="h6" noWrap>
             Snippets
           </Typography>
-          <RunButton onClick={handleRunButtonClick} />
+          <RunButton />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -123,7 +119,7 @@ x * 2
           <Input ref={editorRef}></Input>
           <DragBar />
           <Outputs>
-            <pre>{data && JSON.stringify(data.execute, null, 2)}</pre>
+            <pre>{"Hello, world!"}</pre>
           </Outputs>
         </TwoPanes>
       </main>
