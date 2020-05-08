@@ -59,7 +59,7 @@ x * 2
   };
 
   const handleRunButtonClick = () => {
-    /* Code that handles executing code */
+    /* Your code here */
   };
 
   return (
