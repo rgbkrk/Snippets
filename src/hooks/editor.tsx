@@ -78,10 +78,6 @@ export function useCodeMirror(options: {
       keymap(baseKeymap),
     ],
   });
-  const dispatch = (view: EditorView) => (t: Transaction) => {
-    options.dispatch(t.docs.toString());
-    view.update([t]);
-  };
 
   useEffect(() => {
     if (ref === null || ref.current === null) {

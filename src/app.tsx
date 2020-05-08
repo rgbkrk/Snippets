@@ -119,7 +119,7 @@ x * 2
           <Input ref={editorRef}></Input>
           <DragBar />
           <Outputs>
-            <pre>{"Hello, world!"}</pre>
+            <pre>{"Hello, World!"}</pre>
           </Outputs>
         </TwoPanes>
       </main>
