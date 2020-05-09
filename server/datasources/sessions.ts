@@ -56,11 +56,9 @@ class SessionsAPI extends DataSource<Context> {
       };
     }
 
-    result = JSON.stringify(result, null, 2);
-
     // Workaround for the case where JSON.stringify returns undefined
     // This happens with native code like console.log (Try `JSON.stringify(console.log)` yourself!)
-    if (result === undefined) {
+    if (JSON.stringify(result) === undefined) {
       result = "undefined";
     }
 
