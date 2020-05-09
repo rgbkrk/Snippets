@@ -23,12 +23,10 @@ The Snippet UI consists of an input and output area. The input area contains a c
 If you have extra time and want to go further, you could try your hand at hooking up the snippet history feature. The end result should be a simple list of previously run snippets identified by their snippet id. The task is as follows:
 
 1. Display a list of the previously run snippets in the side drawer (to get to the side drawer, see image below). You may use the snippet `id` as the display text for each item in the list.
-
-![](images/snippet_history.gif)
-
 2. Make each item in the list clickable, and when clicked the UI should display both the input and output of the previously run snippet.
 
 **Hint**: This requires examining the `server/schema.ts` file to determine which [GraphQL](https://www.apollographql.com/docs/apollo-server/) queries are available and hooking them up utilizing [Apollo Client](https://www.apollographql.com/docs/react/).
+![](images/snippet_history.gif)
 
 ## Getting Started
 
