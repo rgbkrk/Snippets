@@ -29,7 +29,7 @@ import { defaultHighlighter } from "@codemirror/next/highlight";
  */
 export function useCodeMirror(options: {
   text: string;
-  dispatch: (code: string) => void;
+  setCode: (code: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const jsCompletions = "break case catch class const continue debugger default delete do else enum export extends false finally for function if implements import interface in instanceof let new package private protected public return static super switch this throw true try typeof var void while with yield"
@@ -88,7 +88,9 @@ export function useCodeMirror(options: {
     let myView = new EditorView({
       state: editorState,
       dispatch: (t: Transaction) => {
-        options.dispatch(t.docs.toString());
+        if (t.docChanged) {
+          options.setCode(t.doc.toString());
+        }
         myView.update([t]);
       },
     });
