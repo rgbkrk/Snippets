@@ -1,12 +1,14 @@
 # Snippet UI Take Home Assignment
 
-![](images/initial_view.png)
+![image](https://user-images.githubusercontent.com/836375/81459876-c36ae900-9156-11ea-95de-8d5b86510f20.png)
+
 
 ## Overview
 
 The Snippet UI consists of an input and output area. The input area contains a code editor which accepts javascript code. The output area needs to display the result of the evaluated code in the code editor, e.g. see below. **The goal of this activity is to hook up the `Run` button so that the results of the evaluated code appear in the output area.**
 
-![](images/results.gif)
+![running in action](https://user-images.githubusercontent.com/836375/81460061-c4504a80-9157-11ea-893f-cbd691f0221c.gif)
+
 
 ## Summary
 
