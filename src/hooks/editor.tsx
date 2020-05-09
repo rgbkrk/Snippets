@@ -32,57 +32,60 @@ export function useCodeMirror(options: {
   setCode: (code: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const jsCompletions = "break case catch class const continue debugger default delete do else enum export extends false finally for function if implements import interface in instanceof let new package private protected public return static super switch this throw true try typeof var void while with yield"
-    .split(" ")
-    .concat(Object.getOwnPropertyNames(window));
-  const isMac = /Mac/.test(navigator.platform);
-  const editorState = EditorState.create({
-    doc: options.text,
-    extensions: [
-      lineNumbers(),
-      history(),
-      specialChars(),
-      foldGutter(),
-      multipleSelections(),
-      javascript(),
-      search({ keymap: defaultSearchKeymap }),
-      defaultHighlighter,
-      bracketMatching(),
-      closeBrackets,
-      autocomplete({
-        override(state, pos, cx) {
-          // @ts-ignore
-          let prefix = /[\w$]*$/.exec(
-            state.doc.slice(Math.max(0, pos - 30), pos)
-          )[0];
-          if (!prefix) return [];
-          return jsCompletions
-            .filter((str) => cx.filter(str, prefix))
-            .map((str) => ({
-              label: str,
-              start: pos - prefix.length,
-              end: pos,
-            }));
-        },
-      }),
-      keymap({
-        "Mod-z": undo,
-        "Mod-Shift-z": redo,
-        "Mod-u": (view) => undoSelection(view) || true,
-        [isMac ? "Mod-Shift-u" : "Alt-u"]: redoSelection,
-        "Ctrl-y": isMac ? undefined : redo,
-        "Shift-Tab": indentSelection,
-        "Mod-Alt-[": foldCode,
-        "Mod-Alt-]": unfoldCode,
-      }),
-      keymap(baseKeymap),
-    ],
-  });
 
   useEffect(() => {
+    // This should _not_ happen unless ref doesn't get set by the parent
     if (ref === null || ref.current === null) {
-      return;
+      throw new Error("ref must be allocated for useCodeMirror");
     }
+
+    const jsCompletions = "break case catch class const continue debugger default delete do else enum export extends false finally for function if implements import interface in instanceof let new package private protected public return static super switch this throw true try typeof var void while with yield"
+      .split(" ")
+      .concat(Object.getOwnPropertyNames(window));
+    const isMac = /Mac/.test(navigator.platform);
+
+    const editorState = EditorState.create({
+      doc: options.text,
+      extensions: [
+        lineNumbers(),
+        history(),
+        specialChars(),
+        foldGutter(),
+        multipleSelections(),
+        javascript(),
+        search({ keymap: defaultSearchKeymap }),
+        defaultHighlighter,
+        bracketMatching(),
+        closeBrackets,
+        autocomplete({
+          override(state, pos, cx) {
+            // @ts-ignore
+            let prefix = /[\w$]*$/.exec(
+              state.doc.slice(Math.max(0, pos - 30), pos)
+            )[0];
+            if (!prefix) return [];
+            return jsCompletions
+              .filter((str) => cx.filter(str, prefix))
+              .map((str) => ({
+                label: str,
+                start: pos - prefix.length,
+                end: pos,
+              }));
+          },
+        }),
+        keymap({
+          "Mod-z": undo,
+          "Mod-Shift-z": redo,
+          "Mod-u": (view) => undoSelection(view) || true,
+          [isMac ? "Mod-Shift-u" : "Alt-u"]: redoSelection,
+          "Ctrl-y": isMac ? undefined : redo,
+          "Shift-Tab": indentSelection,
+          "Mod-Alt-[": foldCode,
+          "Mod-Alt-]": unfoldCode,
+        }),
+        keymap(baseKeymap),
+      ],
+    });
 
     let el = ref.current;
     let myView = new EditorView({
@@ -96,7 +99,9 @@ export function useCodeMirror(options: {
     });
 
     el.appendChild(myView.dom);
-  }, [ref]);
+    // We only want this to run on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return [ref];
 }
