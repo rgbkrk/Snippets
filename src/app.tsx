@@ -49,7 +49,7 @@ y`;
   const [editorRef] = useCodeMirror({
     text: initialCode,
     // When the editor changes code, this callback is triggered with the current code
-    setCode: (code: string) => {},
+    onChange: (code: string) => {},
   });
   const [runSnippet, { data }] = useMutation(RUN_SNIPPET_MUTATION, {
     variables: {},
