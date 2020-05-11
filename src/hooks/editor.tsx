@@ -29,7 +29,7 @@ import { defaultHighlighter } from "@codemirror/next/highlight";
  */
 export function useCodeMirror(options: {
   text: string;
-  setCode: (code: string) => void;
+  onChange: (code: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -92,14 +92,14 @@ export function useCodeMirror(options: {
       state: editorState,
       dispatch: (t: Transaction) => {
         if (t.docChanged) {
-          options.setCode(t.doc.toString());
+          options.onChange(t.doc.toString());
         }
         myView.update([t]);
       },
     });
 
     el.appendChild(myView.dom);
-    // We only want this to run on mount
+    // We only want this hook to run on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
