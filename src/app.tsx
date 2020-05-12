@@ -46,9 +46,11 @@ y.b = y.b*3
 y`;
 
   const [open, setOpen] = useState(false);
-  const [editorRef] = useCodeMirror({
+
+  const [editorRef, thinCodeMirrorAPI] = useCodeMirror({
     text: initialCode,
-    // When the editor changes code, this callback is triggered with the current code
+    // CodeMirror has its own state for the document it manages, so we have to pass a callback
+    // for CodeMirror to report back when code has changed
     onChange: (code: string) => {},
   });
   const [runSnippet, { data }] = useMutation(RUN_SNIPPET_MUTATION, {
