@@ -1,8 +1,25 @@
-import { useEffect, useRef } from "react";
+/**
+ * The useCodeMirror hook provides a way to mount a CodeMirror 6 editor on to a ref.
+ *
+ * CodeMirror 6: https://codemirror.net/6/
+ * CodeMirror 6 Manual: https://codemirror.net/6/docs/ref/
+ *
+ * Example use:
+ *
+ * const [editorRef, thinAPI] = useCodeMirror()
+ *
+ * // Later, in your React element return...
+ *
+ * <div ref={editorRef} />
+ *
+ */
+
+import { useEffect, useRef, useState } from "react";
 
 import { EditorView } from "@codemirror/next/view";
 import { EditorState, Transaction } from "@codemirror/next/state";
 
+/** CodeMirror extensions */
 import { keymap } from "@codemirror/next/keymap";
 import {
   history,
@@ -20,18 +37,46 @@ import { specialChars } from "@codemirror/next/special-chars";
 import { multipleSelections } from "@codemirror/next/multiple-selections";
 import { search, defaultSearchKeymap } from "@codemirror/next/search";
 import { autocomplete } from "@codemirror/next/autocomplete";
-
 import { javascript } from "@codemirror/next/lang-javascript";
 import { defaultHighlighter } from "@codemirror/next/highlight";
+
+/** Types for our "Thin CodeMirror API" */
+type ApplyTransaction = (transaction: Transaction) => Transaction;
+
+// Our Thin API on CodeMirror, for React devs to use
+type CodeMirrorThin = {
+  /**
+   * `apply` allows for applying transactions to the CodeMirror document without having access
+   * to the CodeMirrorView or a particular CodeMirrorState
+   *
+   * NOTE: CodeMirror is outside of React's purview, so it's up to CodeMirror when to render
+   * updates from an `apply` call. You're just letting it know what to change. It's pretty smart
+   * about knowing when to batch up changes before rendering them, much like React itself
+   *
+   * Here's an example transaction of replacing all the code contents.
+   *
+   * thinAPI.apply((t: Transaction) => {
+   *   // Replace the text document from start to end with code
+   *   transaction.replace(0, transaction.doc.length, code);
+   * });
+   */
+  apply: (fn: ApplyTransaction) => void;
+};
 
 /**
  * Set up CodeMirror
  */
 export function useCodeMirror(options: {
-  text: string;
-  onChange: (code: string) => void;
-}) {
+  text?: string;
+  onChange?: (code: string) => void;
+}): [React.RefObject<HTMLDivElement>, CodeMirrorThin] {
   const ref = useRef<HTMLDivElement>(null);
+
+  const [thinAPI, setThinAPI] = useState<CodeMirrorThin>({
+    apply: () => {
+      throw new Error("CodeMirror ref must be set in order to use the API");
+    },
+  });
 
   useEffect(() => {
     // This should _not_ happen unless ref doesn't get set by the parent
@@ -91,10 +136,18 @@ export function useCodeMirror(options: {
     let myView = new EditorView({
       state: editorState,
       dispatch: (t: Transaction) => {
-        if (t.docChanged) {
+        if (t.docChanged && options.onChange) {
           options.onChange(t.doc.toString());
         }
         myView.update([t]);
+      },
+    });
+
+    setThinAPI({
+      apply: (fn: ApplyTransaction) => {
+        const transaction = myView.state.t();
+        const t = fn(transaction);
+        myView.dispatch(t);
       },
     });
 
@@ -103,5 +156,5 @@ export function useCodeMirror(options: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return [ref];
+  return [ref, thinAPI];
 }
