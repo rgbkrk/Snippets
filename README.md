@@ -31,7 +31,8 @@ If you have extra time and want to go further, you could try your hand at hookin
 2. Make each item in the list clickable, and when clicked the UI should display both the input and output of the previously run snippet.
 
 **Hint**: This requires examining the `server/schema.ts` file to determine which [GraphQL](https://www.apollographql.com/docs/apollo-server/) queries are available and hooking them up utilizing [Apollo Client](https://www.apollographql.com/docs/react/).
-![](images/snippet_history.gif)
+
+![snippet_history](https://user-images.githubusercontent.com/836375/82130574-650abf80-9781-11ea-845f-491bed66d8d4.gif)
 
 **Hint 2**: There is a lightweight API we've provided for interfacing with CodeMirror, for you to apply a [CodeMirror `Transaction`](https://codemirror.net/6/docs/ref/#state.Transaction). Check the source in `src/hooks/editor.tsx` for a guide to using it.
 
