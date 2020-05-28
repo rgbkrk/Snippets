@@ -18,14 +18,18 @@ export const TwoPanes = styled.div`
 export const Input = styled.div`
   flex: 3;
   height: 100vh;
-  padding: 10px;
+
+  & > .cm-wrap {
+    height: 100%;
+    overflow: auto;
+  }
 `;
 
 export const DragBar = styled.div`
   flex: none;
   width: 1px;
-  height: 80%;
-  border: 1px dashed gray;
+  height: 100%;
+  border: 0.1px dashed gray;
 `;
 
 export const Outputs = styled.div`

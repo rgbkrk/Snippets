@@ -124,6 +124,7 @@ function App() {
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
+        style={{ padding: "0px" }}
       >
         <div className={classes.drawerHeader} />
         <TwoPanes className="twopane">
