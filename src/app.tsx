@@ -21,7 +21,15 @@ import History from "./components/history";
 import { useCodeMirror } from "./hooks/editor";
 import useStyles from "./theme";
 
-// GraphQL mutation executes code
+// Default code for when the app first comes up
+/* ************************************************************************** */
+const initialCode = `var y = { a: 1, b: Math.random() }
+y.a = y.a*2
+y.b = y.b*3
+
+y`;
+
+// GraphQL mutation executes the snippet code on the server and returns back data
 /* ************************************************************************** */
 const RUN_SNIPPET_MUTATION = gql`
   mutation Execute($code: String) {
@@ -39,11 +47,6 @@ const RUN_SNIPPET_MUTATION = gql`
 function App() {
   const classes = useStyles();
   const theme = useTheme();
-  const initialCode = `var y = { a: 1, b: 1 }
-y.a = y.a*2
-y.b = y.b*3
-
-y`;
 
   const [open, setOpen] = useState(false);
 
@@ -53,8 +56,12 @@ y`;
     // for CodeMirror to report back when code has changed
     onChange: (code: string) => {},
   });
+
+  // TODO: Hook up runSnippet to execute code
   const [runSnippet, { data }] = useMutation(RUN_SNIPPET_MUTATION, {
-    variables: {},
+    variables: {
+      code: initialCode, // TODO: replace with the current code state
+    },
   });
 
   const handleDrawerOpen = () => {
@@ -120,6 +127,7 @@ y`;
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
+        style={{ padding: "0px" }}
       >
         <div className={classes.drawerHeader} />
         <TwoPanes className="twopane">
