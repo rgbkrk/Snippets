@@ -29,7 +29,7 @@ y.b = y.b*3
 
 y`;
 
-// GraphQL mutation executes code on the server
+// GraphQL mutation executes the snippet code on the server and returns back data
 /* ************************************************************************** */
 const RUN_SNIPPET_MUTATION = gql`
   mutation Execute($code: String) {
@@ -57,8 +57,11 @@ function App() {
     onChange: (code: string) => {},
   });
 
+  // TODO: Hook up runSnippet to execute code
   const [runSnippet, { data }] = useMutation(RUN_SNIPPET_MUTATION, {
-    variables: {},
+    variables: {
+      code: initialCode, // TODO: replace with the current code state
+    },
   });
 
   const handleDrawerOpen = () => {
