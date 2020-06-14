@@ -12,6 +12,8 @@ The Snippet UI consists of an input and output area. The input area contains a c
 
 There is a basic react app and GraphQL server with the base functionality implemented. If you're new to GraphQL, read up on [mutations](https://www.apollographql.com/docs/react/data/mutations/) and look at what's already put in place for you with the current `useMutation` call.
 
+**Please read the entire README from start to finish, especially the hints.**
+
 ## Summary
 
 ### Goal
@@ -19,18 +21,16 @@ There is a basic react app and GraphQL server with the base functionality implem
 1. Hook up the `Run` button so that the results of the evaluated javascript code appear in the output area of the UI.
 2. Include a separate `README.md` entitled `SOLUTION.md` explaining a bit about what you did and also how you would test your solution.
 
-### Extra Credit
-
-1. Create a better visualization for results (the right hand pane).
+3. Create a better visualization for results (the right hand pane).
 
 The result area currently just has a `<pre>` tag, but you have access to a whole JSON object you can provide visualizations for. Feel free to take artistic license. You have access to Material UI React components, but feel free to grab other open source libraries to help in visualization.
 
-2. Create a snippet history feature.
+4. Create a snippet history feature.
 
 If you have extra time and want to go further, you could try your hand at hooking up the snippet history feature. The end result should be a simple list of previously run snippets identified by their snippet id or a timestamp (note: you will have to add this field to the GraphQL response). The task is as follows:
 
-1. Display a list of the previously run snippets in the side drawer (to get to the side drawer, see image below). It's up to you what you use as the display text for each snippet in the list.
-2. Make each item in the list clickable, and when clicked the UI should display both the input and output of the previously run snippet.
+- Display a list of the previously run snippets in the side drawer (to get to the side drawer, see image below). It's up to you what you use as the display text for each snippet in the list.
+- Make each item in the list clickable, and when clicked the UI should display both the input and output of the previously run snippet.
 
 **Hint**: This requires examining the `server/schema.ts` file to determine which [GraphQL](https://www.apollographql.com/docs/apollo-server/) queries are available and hooking them up utilizing [Apollo Client](https://www.apollographql.com/docs/react/).
 
@@ -59,7 +59,7 @@ If you have questions, run into issues, or find bugs, please feel free to contac
 
 ## Submitting the assignment
 
-When you are done, zip the project folder and email it to dsp-notebook-dl@netflix.com.
+When you are done, zip the project folder and email it to dsp-notebook-dl@netflix.com. If GMail doesn't let you send it, please upload it to Google Drive and send us the link.
 
 ## References
 
