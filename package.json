@@ -32,7 +32,7 @@
     "uuid": "^8.0.0"
   },
   "scripts": {
-    "archive": "git archive --format=zip --output=netflix-assignment.zip HEAD",
+    "archive": "git archive --format=zip --output=netflix-assignment.zip --prefix=netflix-assignment/ HEAD",
     "start": "yarn dev",
     "dev": "concurrently \"yarn server:dev\" \"yarn ui:dev\"",
     "server:dev": "nodemon 'server/index.ts' --exec 'ts-node --script-mode' server/index.ts -e ts,graphql -p server/tsconfig.json",
